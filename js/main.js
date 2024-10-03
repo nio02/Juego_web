@@ -3,6 +3,8 @@ function startGame() {
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
 }
 
+//Creating pet player selection
+
 function selectPetPlayer() {
     let inputHipodoge = document.getElementById("hipodoge")
     let inputCapipepo = document.getElementById("capipepo")
@@ -32,6 +34,31 @@ function selectPetPlayer() {
         spanPetplayer.innerText = 'Pydos'
     } else {
         alert("Selecciona una mascota por favor")
+    }
+
+    selectPetEnemy()
+}
+
+//Creating enemy pet
+
+function randomNumber(max, min){
+    return Math.floor(Math.random() * (max - min) + min)
+}
+
+function selectPetEnemy(){
+    let randomAttack = randomNumber(1,4)
+
+    let spanPetEnemy = document.getElementById("pet-enemy")
+
+    if (randomAttack == 1){
+        //Hipodoge
+        spanPetEnemy.innerText = 'Hipodoge'
+    } else if (randomAttack == 2){
+        //Capipepo
+        spanPetEnemy.innerText = 'Capipepo'
+    } else if (randomAttack == 3){
+        //Ratigueya
+        spanPetEnemy.innerText = 'Ratigueya'
     }
 }
 
