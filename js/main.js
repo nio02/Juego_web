@@ -1,6 +1,18 @@
+//Creating Global Var
+let playerAttack;
+
+
 function startGame() {
     let buttonPetPlayer = document.getElementById("btn_pet")
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
+
+    //Creating player attack
+    let buttonFire = document.getElementById("btn_fire")
+    buttonFire.addEventListener("click", attackFire)
+    let buttonWater = document.getElementById("btn_water")
+    buttonWater.addEventListener("click", attackWater)
+    let buttonEarth = document.getElementById("btn_earth")
+    buttonEarth.addEventListener("click", attackEarth)
 }
 
 //Creating pet player selection
@@ -46,7 +58,7 @@ function randomNumber(max, min){
 }
 
 function selectPetEnemy(){
-    let randomAttack = randomNumber(1,4)
+    let randomAttack = randomNumber(1,3)
 
     let spanPetEnemy = document.getElementById("pet-enemy")
 
@@ -61,5 +73,24 @@ function selectPetEnemy(){
         spanPetEnemy.innerText = 'Ratigueya'
     }
 }
+
+//Creating attack functions
+
+function attackFire() {
+    playerAttack = "FIRE"
+    alert(playerAttack)
+}
+
+function attackWater() {
+    playerAttack = "WATER"
+    alert(playerAttack)
+}
+
+function attackEarth() {
+    playerAttack = "EARTH"
+    alert(playerAttack)
+}
+
+//Start the game
 
 window.addEventListener("load", startGame)
