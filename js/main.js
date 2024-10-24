@@ -54,8 +54,8 @@ function selectPetPlayer() {
 
 //Creating enemy pet
 
-function randomNumber(max, min){
-    return Math.floor(Math.random() * (max - min) + min)
+function randomNumber(min, max){
+    return Math.floor((((max + 1) - min) * Math.random()) + min)  //Math.random da numero entre 0 y 1, pero nunca será 1 exacto. Por esta razón, sumamos 1 al valor max dentro de la función.
 }
 
 function selectPetEnemy(){
@@ -105,7 +105,22 @@ function enemyRandomAttack() {
     } else if (randomAttack == 3){
         enemyAttack = "EARTH"
     }
+
+    createMessage()
+
 }
+
+//Message Section
+
+function createMessage() {
+    let sectionMessages = document.getElementById('messages')
+
+    let parrafo = document.createElement('p')
+    parrafo.innerText = 'Tu mascota atacó con ' + playerAttack + '. La mascota del enemigo atacó con ' + enemyAttack + '. -PENDIENTE!'
+
+    sectionMessages.appendChild(parrafo)
+}
+
 //Start the game
 
 window.addEventListener("load", startGame)
