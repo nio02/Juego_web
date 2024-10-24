@@ -2,7 +2,6 @@
 let playerAttack
 let enemyAttack
 
-
 function startGame() {
     let buttonPetPlayer = document.getElementById("btn_pet")
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
@@ -55,7 +54,7 @@ function selectPetPlayer() {
 //Creating enemy pet
 
 function randomNumber(min, max){
-    return Math.floor((((max + 1) - min) * Math.random()) + min)  //Math.random da numero entre 0 y 1, pero nunca será 1 exacto. Por esta razón, sumamos 1 al valor max dentro de la función.
+    return Math.floor((((max + 1) - min) * Math.random()) + min)  //Math.random drops a number between zero and one, but never will be one. This is why we add one to "max" valor in this function.
 }
 
 function selectPetEnemy(){
@@ -106,20 +105,40 @@ function enemyRandomAttack() {
         enemyAttack = "EARTH"
     }
 
-    createMessage()
+    gameCombat()
+ 
+}
+
+//Game result logic
+
+function gameCombat() {
+
+    if (playerAttack == enemyAttack){
+        createMessage('¡EMPATE!')
+    } else if (playerAttack == "WATER" && enemyAttack == 'FIRE'){
+        createMessage('¡GANASTE!')
+    } else if (playerAttack == 'FIRE' && enemyAttack == 'EARTH'){
+        createMessage('¡GANASTE!')
+    } else if (playerAttack == 'EARTH' && enemyAttack == 'WATER'){
+        createMessage('¡GANASTE!')
+    } else {
+        createMessage('¡PERDISTE!')
+    }
 
 }
 
 //Message Section
 
-function createMessage() {
+function createMessage(combatResult) {
     let sectionMessages = document.getElementById('messages')
 
     let parrafo = document.createElement('p')
-    parrafo.innerText = 'Tu mascota atacó con ' + playerAttack + '. La mascota del enemigo atacó con ' + enemyAttack + '. -PENDIENTE!'
+    parrafo.innerText = 'Tu mascota atacó con ' + playerAttack + '. La mascota del enemigo atacó con ' + enemyAttack + '. ' + combatResult + '.'
 
     sectionMessages.appendChild(parrafo)
 }
+
+
 
 //Start the game
 
