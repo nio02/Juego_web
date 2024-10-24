@@ -1,5 +1,6 @@
 //Creating Global Var
-let playerAttack;
+let playerAttack
+let enemyAttack
 
 
 function startGame() {
@@ -58,17 +59,17 @@ function randomNumber(max, min){
 }
 
 function selectPetEnemy(){
-    let randomAttack = randomNumber(1,3)
+    let randomPet = randomNumber(1,3)
 
     let spanPetEnemy = document.getElementById("pet-enemy")
 
-    if (randomAttack == 1){
+    if (randomPet == 1){
         //Hipodoge
         spanPetEnemy.innerText = 'Hipodoge'
-    } else if (randomAttack == 2){
+    } else if (randomPet == 2){
         //Capipepo
         spanPetEnemy.innerText = 'Capipepo'
-    } else if (randomAttack == 3){
+    } else if (randomPet == 3){
         //Ratigueya
         spanPetEnemy.innerText = 'Ratigueya'
     }
@@ -78,19 +79,33 @@ function selectPetEnemy(){
 
 function attackFire() {
     playerAttack = "FIRE"
-    alert(playerAttack)
+    
+    enemyRandomAttack()
 }
 
 function attackWater() {
     playerAttack = "WATER"
-    alert(playerAttack)
+    
+    enemyRandomAttack()
 }
 
 function attackEarth() {
     playerAttack = "EARTH"
-    alert(playerAttack)
+    
+    enemyRandomAttack()
 }
 
+function enemyRandomAttack() {
+    let randomAttack = randomNumber(1,3)
+    
+    if (randomAttack == 1){
+        enemyAttack = "FIRE"
+    } else if (randomAttack == 2){
+        enemyAttack = "WATER"
+    } else if (randomAttack == 3){
+        enemyAttack = "EARTH"
+    }
+}
 //Start the game
 
 window.addEventListener("load", startGame)
