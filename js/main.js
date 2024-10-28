@@ -56,6 +56,14 @@ function selectPetPlayer() {
     }
 
     selectPetEnemy()
+
+    //Select a pet before attack logic    
+    let buttonFire = document.getElementById("btn_fire")
+    buttonFire.disabled = false
+    let buttonWater = document.getElementById("btn_water")
+    buttonWater.disabled = false
+    let buttonEarth = document.getElementById("btn_earth")
+    buttonEarth.disabled = false
 }
 
 //Creating enemy pet
@@ -91,13 +99,13 @@ function attackFire() {
 
 function attackWater() {
     playerAttack = "AGUA"
-    
+
     enemyRandomAttack()
 }
 
 function attackEarth() {
     playerAttack = "TIERRA"
-    
+
     enemyRandomAttack()
 }
 
@@ -175,6 +183,8 @@ function createFinalMessage(finalResult) {
     parrafo.innerText = finalResult
 
     sectionMessages.appendChild(parrafo)
+
+    //End game cap
 
     let buttonFire = document.getElementById("btn_fire")
     buttonFire.disabled = true
