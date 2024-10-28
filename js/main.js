@@ -2,6 +2,9 @@
 let playerAttack
 let enemyAttack
 
+let playerLife = 3
+let enemyLife = 3
+
 function startGame() {
     let buttonPetPlayer = document.getElementById("btn_pet")
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
@@ -13,6 +16,10 @@ function startGame() {
     buttonWater.addEventListener("click", attackWater)
     let buttonEarth = document.getElementById("btn_earth")
     buttonEarth.addEventListener("click", attackEarth)
+
+    //Restart button
+    let restartButton = document.getElementById('btn_reboot')
+    restartButton.addEventListener("click", restartGame)
 }
 
 //Creating pet player selection
@@ -77,19 +84,19 @@ function selectPetEnemy(){
 //Creating attack functions
 
 function attackFire() {
-    playerAttack = "FIRE"
+    playerAttack = "FUEGO"
     
     enemyRandomAttack()
 }
 
 function attackWater() {
-    playerAttack = "WATER"
+    playerAttack = "AGUA"
     
     enemyRandomAttack()
 }
 
 function attackEarth() {
-    playerAttack = "EARTH"
+    playerAttack = "TIERRA"
     
     enemyRandomAttack()
 }
@@ -98,11 +105,11 @@ function enemyRandomAttack() {
     let randomAttack = randomNumber(1,3)
     
     if (randomAttack == 1){
-        enemyAttack = "FIRE"
+        enemyAttack = "FUEGO"
     } else if (randomAttack == 2){
-        enemyAttack = "WATER"
+        enemyAttack = "AGUA"
     } else if (randomAttack == 3){
-        enemyAttack = "EARTH"
+        enemyAttack = "TIERRA"
     }
 
     gameCombat()
@@ -112,19 +119,30 @@ function enemyRandomAttack() {
 //Game result logic
 
 function gameCombat() {
+    let spanPlayerLife = document.getElementById('player-life')
+    let spanEnemyLife = document.getElementById('enemy-life')
 
     if (playerAttack == enemyAttack){
         createMessage('¡EMPATE!')
-    } else if (playerAttack == "WATER" && enemyAttack == 'FIRE'){
+    } else if (playerAttack == "AGUA" && enemyAttack == 'FUEGO'){
         createMessage('¡GANASTE!')
-    } else if (playerAttack == 'FIRE' && enemyAttack == 'EARTH'){
+        enemyLife--
+        spanEnemyLife.innerText = enemyLife
+    } else if (playerAttack == 'FUEGO' && enemyAttack == 'TIERRA'){
         createMessage('¡GANASTE!')
-    } else if (playerAttack == 'EARTH' && enemyAttack == 'WATER'){
+        enemyLife--
+        spanEnemyLife.innerText = enemyLife
+    } else if (playerAttack == 'TIERRA' && enemyAttack == 'AGUA'){
         createMessage('¡GANASTE!')
+        enemyLife--
+        spanEnemyLife.innerText = enemyLife
     } else {
         createMessage('¡PERDISTE!')
+        playerLife--
+        spanPlayerLife.innerText = playerLife
     }
 
+    lifeStatus()
 }
 
 //Message Section
@@ -138,7 +156,32 @@ function createMessage(combatResult) {
     sectionMessages.appendChild(parrafo)
 }
 
+//Checking Lifes
 
+function lifeStatus(){
+    if (enemyLife == 0){
+        createFinalMessage('¡Felicitaciones! Ganaste el juego :)')
+    } else if (playerLife == 0){
+        createFinalMessage('Lo siento, perdiste :(')
+    }
+}
+
+//Final Message
+
+function createFinalMessage(finalResult) {
+    let sectionMessages = document.getElementById('messages')
+
+    let parrafo = document.createElement('p')
+    parrafo.innerText = finalResult
+
+    sectionMessages.appendChild(parrafo)
+}
+
+//Restart Game
+
+function restartGame(){
+    location.reload()
+}
 
 //Start the game
 
