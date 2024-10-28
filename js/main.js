@@ -175,6 +175,13 @@ function createFinalMessage(finalResult) {
     parrafo.innerText = finalResult
 
     sectionMessages.appendChild(parrafo)
+
+    let buttonFire = document.getElementById("btn_fire")
+    buttonFire.disabled = true
+    let buttonWater = document.getElementById("btn_water")
+    buttonWater.disabled = true
+    let buttonEarth = document.getElementById("btn_earth")
+    buttonEarth.disabled = true
 }
 
 //Restart Game
