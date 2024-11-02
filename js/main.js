@@ -6,6 +6,15 @@ let playerLife = 3
 let enemyLife = 3
 
 function startGame() {
+    //Hiding attack elements at start
+    let sectionSelectAttack = document.getElementById('attack_selector')
+    sectionSelectAttack.style.display = 'none'
+
+    //Hiding restar button at start
+    let sectionReboot = document.getElementById('reboot')
+    sectionReboot.style.display = 'none'
+
+    //Button Pet Selector
     let buttonPetPlayer = document.getElementById("btn_pet")
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
 
@@ -25,6 +34,15 @@ function startGame() {
 //Creating pet player selection
 
 function selectPetPlayer() {
+    //Show Elements After Choose A Pet
+    let sectionSelectAttack = document.getElementById('attack_selector')
+    sectionSelectAttack.style.display = 'block'
+
+    //Hide Pet Selector
+    let sectionSelectPet = document.getElementById('pet_selector')
+    sectionSelectPet.style.display = 'none'
+
+    //Choose Pet Logic
     let inputHipodoge = document.getElementById("hipodoge")
     let inputCapipepo = document.getElementById("capipepo")
     let inputRatigueya = document.getElementById("ratigueya")
@@ -192,6 +210,10 @@ function createFinalMessage(finalResult) {
     buttonWater.disabled = true
     let buttonEarth = document.getElementById("btn_earth")
     buttonEarth.disabled = true
+
+    //Show restart button at endgame
+    let sectionReboot = document.getElementById('reboot')
+    sectionReboot.style.display = 'block'
 }
 
 //Restart Game
