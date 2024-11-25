@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #041562;
+}
+
+#pet_selector {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.title {
+    color: white;
+    font-size: 40px;
+    font-family: 'Fredoka One', cursive;
+}
+
+.subtitle {
+    color: white;
+    font-size: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 10px;
+    max-width: 100%;
+}
+
+.mokepon-cards {
+    width: 180px;
+    height: 100px;
+    background: #11468F;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.mokepon-cards img {
+    width: 80px;
+}
+
+#btn_pet {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 30px;
+}
+
+input:checked label {
+    background-color: hotpink;
+}
+
+input {
+    display: none;
+}
