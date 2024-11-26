@@ -175,12 +175,22 @@ function gameCombat() {
 //Message Section
 
 function createMessage(combatResult) {
-    let sectionMessages = document.getElementById('messages')
+    let sectionResult = document.getElementById('result')
+    let sectionPlayerResume = document.getElementById('player_resume')
+    let sectionEnemyResume = document.getElementById('enemy_resume')
 
-    let parrafo = document.createElement('p')
-    parrafo.innerText = 'Tu mascota atacó con ' + playerAttack + '. La mascota del enemigo atacó con ' + enemyAttack + '. ' + combatResult + '.'
+    //Adjusting to new design
+    let newAttackPlayer = document.createElement('p')
+    let newAttackEnemy = document.createElement('p')
 
-    sectionMessages.appendChild(parrafo)
+    sectionResult.innerText = combatResult
+    newAttackPlayer.innerText = playerAttack
+    newAttackEnemy.innerText = enemyAttack
+    // let parrafo = document.createElement('p')
+    // parrafo.innerText = 'Tu mascota atacó con ' + playerAttack + '. La mascota del enemigo atacó con ' + enemyAttack + '. ' + combatResult + '.'
+
+    sectionPlayerResume.appendChild(newAttackPlayer)
+    sectionEnemyResume.appendChild(newAttackEnemy)
 }
 
 //Checking Lifes
