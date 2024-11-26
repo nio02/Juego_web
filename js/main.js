@@ -206,12 +206,10 @@ function lifeStatus(){
 //Final Message
 
 function createFinalMessage(finalResult) {
-    let sectionMessages = document.getElementById('messages')
+    let sectionMessages = document.getElementById('result')
 
-    let parrafo = document.createElement('p')
-    parrafo.innerText = finalResult
+    sectionMessages.innerText = finalResult
 
-    sectionMessages.appendChild(parrafo)
 
     //End game cap
 
