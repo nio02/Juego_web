@@ -36,7 +36,7 @@ function startGame() {
 function selectPetPlayer() {
     //Show Elements After Choose A Pet
     let sectionSelectAttack = document.getElementById('attack_selector')
-    sectionSelectAttack.style.display = 'block'
+    sectionSelectAttack.style.display = 'flex'
 
     //Hide Pet Selector
     let sectionSelectPet = document.getElementById('pet_selector')
@@ -71,6 +71,7 @@ function selectPetPlayer() {
         spanPetplayer.innerText = 'Pydos'
     } else {
         alert("Selecciona una mascota por favor")
+        restartGame()
     }
 
     selectPetEnemy()

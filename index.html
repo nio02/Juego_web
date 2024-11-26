@@ -42,13 +42,14 @@
             <input type="radio" name="pet" id="pydos"/>
         </div>
 
-        Hipodoge -> Agua
+        <!-- Hipodoge -> Agua
         Capipepo -> Tierra
         Ratigueya -> Fuego
         Langostelvis -> Agua y Fuego
         Tucapalma -> Agua y Tierra
-        Pydos -> Tierra y Fuego
-            <button id="btn_pet"> Seleccionar</button>
+        Pydos -> Tierra y Fuego -->
+        
+        <button id="btn_pet"> Seleccionar</button>
 
     </section>
 
@@ -57,24 +58,28 @@
 
         <h2 class="subtitle">Selecciona tu ataque:</h2>
 
-        <p>Tu mascota <span id="pet-player"></span> tiene <span id="player-life">3</span> vidas</p>
-        <p>La mascota <span id="pet-enemy"></span> del enemigo tiene <span id="enemy-life">3</span> vidas</p>
+        <div>
+            <button class="attack_button" id="btn_fire" disabled>Fuego 🔥</button>
+            <button class="attack_button" id="btn_water" disabled>Agua 💧</button>
+            <button class="attack_button" id="btn_earth" disabled>Tierra 🌱</button>
+        </div>
 
-        <p>
-            <button id="btn_fire" disabled>Fuego 🔥</button>
-            <button id="btn_water" disabled>Agua 💧</button>
-            <button id="btn_earth" disabled>Tierra 🌱</button>
-        </p>
-    </section>
+        <div>
+            <section id="messages">
+        
+            </section>
+        
+            <section id="reboot">
+                <button id="btn_reboot">Reiniciar</button>
+            </section>
+        </div>
 
-    <section id="messages">
+        <div>
+            <p>Tu mascota <span id="pet-player"></span> tiene <span id="player-life">3</span> vidas</p>
+            <p>La mascota <span id="pet-enemy"></span> del enemigo tiene <span id="enemy-life">3</span> vidas</p>
+        </div>
         
     </section>
-
-    <section id="reboot">
-        <button id="btn_reboot">Reiniciar</button>
-    </section>
-
-
+ 
 </body>
 </html>
