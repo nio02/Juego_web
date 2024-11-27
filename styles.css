@@ -50,7 +50,7 @@ body {
     width: 80px;
 }
 
-.mokepon-cards.checked {
+/* .mokepon-cards.checked {
     width: 180px;
     height: 100px;
     background: white;
@@ -62,6 +62,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #041562;
+} */
+
+.mokepon-cards:hover {
+    background: white;
     color: #041562;
 }
 
@@ -77,8 +82,20 @@ body {
     margin-top: 30px;
 }
 
+#btn_pet:hover {
+    color: #041562;
+    background-color: #EEEEEE;
+    border-color: #11468F;
+}
+
 input {
     display: none;
+}
+
+input:checked + label {
+    background-color: #EEEEEE;
+    border-color: #11468F;
+    color: #041562;
 }
 
 #attack_selector {
