@@ -25,7 +25,7 @@ body {
     font-size: 20px;
 }
 
-.cards {
+.cards, .attack_options {
     display: flex;
     gap: 10px;
     max-width: 100%;
@@ -49,6 +49,22 @@ body {
 .mokepon-cards img {
     width: 80px;
 }
+
+.mokepon-cards.checked {
+    width: 180px;
+    height: 100px;
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #041562;
+}
+
 
 #btn_pet {
     width: 180px;
@@ -131,4 +147,14 @@ input {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+@media (max-width: 360px){
+    .cards, .attack_options {
+        flex-direction: column;
+    }
+
+    #pet_selector {
+        height: auto;
+    }
 }

@@ -10,7 +10,7 @@ function startGame() {
     let sectionSelectAttack = document.getElementById('attack_selector')
     sectionSelectAttack.style.display = 'none'
 
-    //Hiding restar button at start
+    //Hiding restart button at start
     let sectionReboot = document.getElementById('reboot')
     sectionReboot.style.display = 'none'
 
