@@ -82,6 +82,11 @@ input {
     font-family: 'Poppins', sans-serif;
 }
 
+.attack_button:hover{
+    background-color:  #EEEEEE;
+    color: #041562;
+}
+
 #messages {
     width: 280px;
     background-color: #EEEEEE;
@@ -96,4 +101,34 @@ input {
 #btn_reboot {
     border: transparent;
     color: #11468F;
+    font-family: 'Poppins', sans-serif;
+}
+
+.combat_log {
+    display: grid;
+    grid-template-columns: 100px 60px 100px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.player_log {
+    grid-column-start: 1;
+    justify-content: center;
+    border: 2px solid white;
+    margin-top: 20px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.enemy_log {
+    grid-column-start: 3;
+    justify-content: center;
+    border: 2px solid white;
+    width: 100px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
