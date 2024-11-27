@@ -1,3 +1,33 @@
+//Getting variables out of functions (DRY)
+//startGame
+const sectionSelectAttack = document.getElementById('attack_selector')
+const sectionReboot = document.getElementById('reboot')
+const buttonPetPlayer = document.getElementById("btn_pet")
+const buttonFire = document.getElementById("btn_fire")
+const buttonWater = document.getElementById("btn_water")
+const buttonEarth = document.getElementById("btn_earth")
+const restartButton = document.getElementById('btn_reboot')
+//selectPetPlayer
+const inputHipodoge = document.getElementById("hipodoge")
+const inputCapipepo = document.getElementById("capipepo")
+const inputRatigueya = document.getElementById("ratigueya")
+const inputLangostelvis = document.getElementById("langostelvis")
+const inputTucapalma = document.getElementById("tucapalma")
+const inputPydos = document.getElementById("pydos")
+const spanPetplayer = document.getElementById("pet-player")
+const sectionSelectPet = document.getElementById('pet_selector')
+//selectPetEnemy
+const spanPetEnemy = document.getElementById("pet-enemy")
+//gameCombat
+const spanPlayerLife = document.getElementById('player-life')
+const spanEnemyLife = document.getElementById('enemy-life')
+//createMessage
+const sectionResult = document.getElementById('result')
+const sectionPlayerResume = document.getElementById('player_resume')
+const sectionEnemyResume = document.getElementById('enemy_resume')
+//createFinalMessage
+const sectionMessages = document.getElementById('result')
+
 //Creating Global Var
 let playerAttack
 let enemyAttack
@@ -7,27 +37,20 @@ let enemyLife = 3
 
 function startGame() {
     //Hiding attack elements at start
-    let sectionSelectAttack = document.getElementById('attack_selector')
     sectionSelectAttack.style.display = 'none'
 
     //Hiding restart button at start
-    let sectionReboot = document.getElementById('reboot')
     sectionReboot.style.display = 'none'
 
     //Button Pet Selector
-    let buttonPetPlayer = document.getElementById("btn_pet")
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
 
     //Creating player attack
-    let buttonFire = document.getElementById("btn_fire")
     buttonFire.addEventListener("click", attackFire)
-    let buttonWater = document.getElementById("btn_water")
     buttonWater.addEventListener("click", attackWater)
-    let buttonEarth = document.getElementById("btn_earth")
     buttonEarth.addEventListener("click", attackEarth)
 
     //Restart button
-    let restartButton = document.getElementById('btn_reboot')
     restartButton.addEventListener("click", restartGame)
 }
 
@@ -35,22 +58,12 @@ function startGame() {
 
 function selectPetPlayer() {
     //Show Elements After Choose A Pet
-    let sectionSelectAttack = document.getElementById('attack_selector')
     sectionSelectAttack.style.display = 'flex'
 
     //Hide Pet Selector
-    let sectionSelectPet = document.getElementById('pet_selector')
     sectionSelectPet.style.display = 'none'
 
     //Choose Pet Logic
-    let inputHipodoge = document.getElementById("hipodoge")
-    let inputCapipepo = document.getElementById("capipepo")
-    let inputRatigueya = document.getElementById("ratigueya")
-    let inputLangostelvis = document.getElementById("langostelvis")
-    let inputTucapalma = document.getElementById("tucapalma")
-    let inputPydos = document.getElementById("pydos")
-    let spanPetplayer = document.getElementById("pet-player")
-
     if (inputHipodoge.checked){
         alert("Seleccionaste a Hipodoge")
         spanPetplayer.innerText = 'Hipodoge'
@@ -76,12 +89,9 @@ function selectPetPlayer() {
 
     selectPetEnemy()
 
-    //Select a pet before attack logic    
-    let buttonFire = document.getElementById("btn_fire")
+    //Select a pet before attack logic
     buttonFire.disabled = false
-    let buttonWater = document.getElementById("btn_water")
     buttonWater.disabled = false
-    let buttonEarth = document.getElementById("btn_earth")
     buttonEarth.disabled = false
 }
 
@@ -93,8 +103,6 @@ function randomNumber(min, max){
 
 function selectPetEnemy(){
     let randomPet = randomNumber(1,3)
-
-    let spanPetEnemy = document.getElementById("pet-enemy")
 
     if (randomPet == 1){
         //Hipodoge
@@ -146,9 +154,7 @@ function enemyRandomAttack() {
 //Game result logic
 
 function gameCombat() {
-    let spanPlayerLife = document.getElementById('player-life')
-    let spanEnemyLife = document.getElementById('enemy-life')
-
+    
     if (playerAttack == enemyAttack){
         createMessage('¡EMPATE!')
     } else if (playerAttack == "AGUA" && enemyAttack == 'FUEGO'){
@@ -175,10 +181,6 @@ function gameCombat() {
 //Message Section
 
 function createMessage(combatResult) {
-    let sectionResult = document.getElementById('result')
-    let sectionPlayerResume = document.getElementById('player_resume')
-    let sectionEnemyResume = document.getElementById('enemy_resume')
-
     //Adjusting to new design
     let newAttackPlayer = document.createElement('p')
     let newAttackEnemy = document.createElement('p')
@@ -206,22 +208,14 @@ function lifeStatus(){
 //Final Message
 
 function createFinalMessage(finalResult) {
-    let sectionMessages = document.getElementById('result')
-
     sectionMessages.innerText = finalResult
 
-
     //End game cap
-
-    let buttonFire = document.getElementById("btn_fire")
     buttonFire.disabled = true
-    let buttonWater = document.getElementById("btn_water")
     buttonWater.disabled = true
-    let buttonEarth = document.getElementById("btn_earth")
     buttonEarth.disabled = true
 
     //Show restart button at endgame
-    let sectionReboot = document.getElementById('reboot')
     sectionReboot.style.display = 'block'
 }
 
