@@ -140,22 +140,13 @@ function selectPetPlayer() {
     //Choose Pet Logic
     if (inputHipodoge.checked){
         alert("Seleccionaste a Hipodoge")
-        spanPetplayer.innerText = 'Hipodoge'
+        spanPetplayer.innerText = inputHipodoge.id
     } else if (inputCapipepo.checked){
         alert("Seleccionaste a Capipepo")
-        spanPetplayer.innerText = 'Capipepo'
+        spanPetplayer.innerText = inputCapipepo.id
     } else if (inputRatigueya.checked){
         alert("Seleccionaste a Ratigueya")
-        spanPetplayer.innerText = 'Ratigueya'
-    } else if (inputLangostelvis.checked){
-        alert("Seleccionaste a Langostelvis")
-        spanPetplayer.innerText = 'Langostelvis'
-    } else if (inputTucapalma.checked){
-        alert("Seleccionaste a Tucapalma")
-        spanPetplayer.innerText = 'Tucapalma'
-    } else if (inputPydos.checked){
-        alert("Seleccionaste a Pydos")
-        spanPetplayer.innerText = 'Pydos'
+        spanPetplayer.innerText = inputRatigueya.id
     } else {
         alert("Selecciona una mascota por favor")
         restartGame()
@@ -176,18 +167,22 @@ function randomNumber(min, max){
 }
 
 function selectPetEnemy(){
-    let randomPet = randomNumber(1,3)
+    let randomPet = randomNumber(0, mokepones.length - 1)
 
-    if (randomPet == 1){
-        //Hipodoge
-        spanPetEnemy.innerText = 'Hipodoge'
-    } else if (randomPet == 2){
-        //Capipepo
-        spanPetEnemy.innerText = 'Capipepo'
-    } else if (randomPet == 3){
-        //Ratigueya
-        spanPetEnemy.innerText = 'Ratigueya'
-    }
+    //Fixed logic using array index
+    spanPetEnemy.innerText = mokepones[randomPet].name
+
+    //Old Logic
+    // if (randomPet == 1){
+    //     //Hipodoge
+    //     spanPetEnemy.innerText = 'Hipodoge'
+    // } else if (randomPet == 2){
+    //     //Capipepo
+    //     spanPetEnemy.innerText = 'Capipepo'
+    // } else if (randomPet == 3){
+    //     //Ratigueya
+    //     spanPetEnemy.innerText = 'Ratigueya'
+    // }
 }
 
 //Creating attack functions
