@@ -28,12 +28,33 @@ const sectionEnemyResume = document.getElementById('enemy_resume')
 //createFinalMessage
 const sectionMessages = document.getElementById('result')
 
+//Creating Arrays
+let mokepones = []
+
 //Creating Global Var
 let playerAttack
 let enemyAttack
-
 let playerLife = 3
 let enemyLife = 3
+
+//Creating Classes
+
+class Mokepon {
+    constructor(name, picture, life){ //Pets properties
+        this.name = name
+        this.picture = picture
+        this.life = life
+    }
+}
+
+//Creating Objects (?)
+let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5)
+let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5)
+let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5)
+
+//Adding objects to the array
+mokepones.push(hipodoge, capipepo, ratigueya)
+
 
 function startGame() {
     //Hiding attack elements at start
