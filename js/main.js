@@ -8,9 +8,7 @@ const buttonWater = document.getElementById("btn_water")
 const buttonEarth = document.getElementById("btn_earth")
 const restartButton = document.getElementById('btn_reboot')
 //selectPetPlayer
-const inputHipodoge = document.getElementById("hipodoge")
-const inputCapipepo = document.getElementById("capipepo")
-const inputRatigueya = document.getElementById("ratigueya")
+
 const inputLangostelvis = document.getElementById("langostelvis")
 const inputTucapalma = document.getElementById("tucapalma")
 const inputPydos = document.getElementById("pydos")
@@ -27,6 +25,8 @@ const sectionPlayerResume = document.getElementById('player_resume')
 const sectionEnemyResume = document.getElementById('enemy_resume')
 //createFinalMessage
 const sectionMessages = document.getElementById('result')
+//Adding Classes/Objects iterating
+const cardsContainer = document.getElementById('cards_container')
 
 //Creating Arrays
 let mokepones = []
@@ -37,6 +37,13 @@ let enemyAttack
 let playerLife = 3
 let enemyLife = 3
 
+let mokeponesOptions
+
+//Fixed pet selector
+let inputHipodoge
+let inputCapipepo 
+let inputRatigueya
+
 //Creating Classes
 
 class Mokepon {
@@ -44,6 +51,7 @@ class Mokepon {
         this.name = name
         this.picture = picture
         this.life = life
+        this.attacks = [] 
     }
 }
 
@@ -52,9 +60,37 @@ let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attac
 let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5)
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5)
 
-//Adding objects to the array
+//Adding objects to the array (learning purposes)
+//mokepones.push(hipodoge, capipepo, ratigueya)
+
+//Adding pet attacks (array/dictioanry)
+hipodoge.attacks.push(
+    {nombre: 'water_1', id: 'btn_water'},
+    {nombre: 'water_2', id: 'btn_water'},
+    {nombre: 'water_3', id: 'btn_water'},
+    {nombre: 'fire_1', id: 'btn_fire'},
+    {nombre: 'earth_1', id: 'btn_earth'},
+)
+
+capipepo.attacks.push(
+    {nombre: 'earth_1', id: 'btn_earth'},
+    {nombre: 'earth_2', id: 'btn_earth'},
+    {nombre: 'earth_3', id: 'btn_earth'},
+    {nombre: 'water_1', id: 'btn_water'},
+    {nombre: 'fire_1', id: 'btn_fire'},
+)
+
+ratigueya.attacks.push(
+    {nombre: 'fire_1', id: 'btn_fire'},
+    {nombre: 'fire_2', id: 'btn_fire'},
+    {nombre: 'fire_3', id: 'btn_fire'},
+    {nombre: 'water_1', id: 'btn_water'},
+    {nombre: 'earth_1', id: 'btn_earth'},
+)
+
 mokepones.push(hipodoge, capipepo, ratigueya)
 
+//Functions
 
 function startGame() {
     //Hiding attack elements at start
@@ -62,6 +98,23 @@ function startGame() {
 
     //Hiding restart button at start
     sectionReboot.style.display = 'none'
+
+    //Adding in order to get data from arrays
+    mokepones.forEach((mokepon) => {
+        mokeponesOptions = `
+            <input type="radio" name="pet" id="${mokepon.name}"/>
+            <label class="mokepon-cards" for="${mokepon.name}">
+                <p>${mokepon.name}</p>
+                <img src="${mokepon.picture}" alt="Imagen de ${mokepon.name}">
+            </label>
+        `
+    cardsContainer.innerHTML += mokeponesOptions
+    //Fixed Pet Selector
+    inputHipodoge = document.getElementById("Hipodoge")
+    inputCapipepo = document.getElementById("Capipepo")
+    inputRatigueya = document.getElementById("Ratigueya")
+
+    })
 
     //Button Pet Selector
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
