@@ -32,7 +32,7 @@ let mokepones = []
 
 //Creating Global Var
 let playerAttack
-let enemyAttack
+let enemyAttack = []
 let playerLife = 3
 let enemyLife = 3
 
@@ -45,12 +45,15 @@ let inputRatigueya
 
 //new Attack selector
 let petPlayer
-
 let mokeponAttacks
-
 let buttonFire 
 let buttonWater
 let buttonEarth
+let buttons = []
+let newPlayerAttack = []
+
+//Enemy propierties
+let enemyPetAbilities
 
 //Creating Classes
 
@@ -182,7 +185,7 @@ function getAttacks(petPlayer){
             petAbilities = mokepones[i].attacks
         }
     }
-    console.log(petAbilities)
+    
     showAttacks(petAbilities)
 }    
 
@@ -191,7 +194,7 @@ function getAttacks(petPlayer){
 function showAttacks(petAttacks){
     petAttacks.forEach((attack) => {
         mokeponAttacks = `
-            <button class="attack_button" id="${attack.id}">${attack.name}</button>
+            <button class="attack_button aButton" id="${attack.id}">${attack.name}</button>
         `
         pet_Abilities_Container.innerHTML += mokeponAttacks
     })
@@ -200,11 +203,38 @@ function showAttacks(petAttacks){
     buttonFire = document.getElementById('btn_fire')
     buttonWater = document.getElementById('btn_water')
     buttonEarth = document.getElementById('btn_earth')
-
+    //Grouping buttons
+    buttons = document.querySelectorAll('.aButton')
+    
     //Player attack EventListeners
     buttonFire.addEventListener("click", attackFire)
     buttonWater.addEventListener("click", attackWater)
     buttonEarth.addEventListener("click", attackEarth)
+}
+
+//New combat logic based on victories, with arrays to every player attack and enemy attacks
+
+function attackSequence() {
+    //Visually disable attack button
+    buttons.forEach((button) =>{
+        button.addEventListener('click', (e) => {
+            if (e.target.textContent === 'fire_1 🔥' || e.target.textContent === 'fire_2 🔥' || e.target.textContent === 'fire_3 🔥') {
+                newPlayerAttack.push('FUEGO')
+                console.log(newPlayerAttack)
+                button.style.background = '#112f58'
+            } else if (e.target.textContent === 'water_1 💧' || e.target.textContent === 'water_2 💧' || e.target.textContent === 'water_3 💧'){
+                newPlayerAttack.push('AGUA')
+                console.log(newPlayerAttack)
+                button.style.background = '#112f58'
+            } else if (e.target.textContent === 'earth_1 🌱' || e.target.textContent === 'earth_2 🌱' || e.target.textContent === 'earth_3 🌱') {
+                newPlayerAttack.push('AGUA')
+                console.log(newPlayerAttack)
+                button.style.background = '#112f58'
+            }
+
+            enemyRandomAttack()
+        })
+    })
 }
 
 //Creating enemy pet
@@ -218,7 +248,11 @@ function selectPetEnemy(){
 
     //Fixed logic using array index
     spanPetEnemy.innerText = mokepones[randomPet].name
+    
+    enemyPetAbilities = mokepones[randomPet].attacks
 
+    //Added event listener to new buttons
+    attackSequence()
     //Old Logic
     // if (randomPet == 1){
     //     //Hipodoge
@@ -253,15 +287,26 @@ function attackEarth() {
 }
 
 function enemyRandomAttack() {
-    let randomAttack = randomNumber(1,3)
+    let randomAttack = randomNumber(0, enemyPetAbilities.length - 1)
     
-    if (randomAttack == 1){
-        enemyAttack = "FUEGO"
-    } else if (randomAttack == 2){
-        enemyAttack = "AGUA"
-    } else if (randomAttack == 3){
-        enemyAttack = "TIERRA"
+    //old logic
+    // if (randomAttack == 1){
+    //     enemyAttack = "FUEGO"
+    // } else if (randomAttack == 2){
+    //     enemyAttack = "AGUA"
+    // } else if (randomAttack == 3){
+    //     enemyAttack = "TIERRA"
+    // }
+
+    if (randomAttack == 0 || randomAttack == 1){
+        enemyAttack.push("FUEGO")
+    } else if (randomAttack == 3 || randomAttack == 4){
+        enemyAttack.push("AGUA")
+    } else {
+        enemyAttack.push("TIERRA")
     }
+
+    console.log(enemyAttack)
 
     gameCombat()
  
