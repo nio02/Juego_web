@@ -3,12 +3,9 @@
 const sectionSelectAttack = document.getElementById('attack_selector')
 const sectionReboot = document.getElementById('reboot')
 const buttonPetPlayer = document.getElementById("btn_pet")
-const buttonFire = document.getElementById("btn_fire")
-const buttonWater = document.getElementById("btn_water")
-const buttonEarth = document.getElementById("btn_earth")
+
 const restartButton = document.getElementById('btn_reboot')
 //selectPetPlayer
-
 const inputLangostelvis = document.getElementById("langostelvis")
 const inputTucapalma = document.getElementById("tucapalma")
 const inputPydos = document.getElementById("pydos")
@@ -27,6 +24,8 @@ const sectionEnemyResume = document.getElementById('enemy_resume')
 const sectionMessages = document.getElementById('result')
 //Adding Classes/Objects iterating
 const cardsContainer = document.getElementById('cards_container')
+//Attack Container
+const attacksContainer = document.getElementById('pet_Abilities_Container')
 
 //Creating Arrays
 let mokepones = []
@@ -43,6 +42,15 @@ let mokeponesOptions
 let inputHipodoge
 let inputCapipepo 
 let inputRatigueya
+
+//new Attack selector
+let petPlayer
+
+let mokeponAttacks
+
+let buttonFire 
+let buttonWater
+let buttonEarth
 
 //Creating Classes
 
@@ -65,29 +73,30 @@ let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_at
 
 //Adding pet attacks (array/dictioanry)
 hipodoge.attacks.push(
-    {nombre: 'water_1', id: 'btn_water'},
-    {nombre: 'water_2', id: 'btn_water'},
-    {nombre: 'water_3', id: 'btn_water'},
-    {nombre: 'fire_1', id: 'btn_fire'},
-    {nombre: 'earth_1', id: 'btn_earth'},
+    {name: 'water_1 💧', id: 'btn_water'},
+    {name: 'water_2 💧', id: 'btn_water'},
+    {name: 'water_3 💧', id: 'btn_water'},
+    {name: 'fire_1 🔥', id: 'btn_fire'},
+    {name: 'earth_1 🌱', id: 'btn_earth'},
 )
 
 capipepo.attacks.push(
-    {nombre: 'earth_1', id: 'btn_earth'},
-    {nombre: 'earth_2', id: 'btn_earth'},
-    {nombre: 'earth_3', id: 'btn_earth'},
-    {nombre: 'water_1', id: 'btn_water'},
-    {nombre: 'fire_1', id: 'btn_fire'},
+    {name: 'earth_1 🌱', id: 'btn_earth'},
+    {name: 'earth_2 🌱', id: 'btn_earth'},
+    {name: 'earth_3 🌱', id: 'btn_earth'},
+    {name: 'water_1 💧', id: 'btn_water'},
+    {name: 'fire_1 🔥', id: 'btn_fire'},
 )
 
 ratigueya.attacks.push(
-    {nombre: 'fire_1', id: 'btn_fire'},
-    {nombre: 'fire_2', id: 'btn_fire'},
-    {nombre: 'fire_3', id: 'btn_fire'},
-    {nombre: 'water_1', id: 'btn_water'},
-    {nombre: 'earth_1', id: 'btn_earth'},
+    {name: 'fire_1 🔥', id: 'btn_fire'},
+    {name: 'fire_2 🔥', id: 'btn_fire'},
+    {name: 'fire_3 🔥', id: 'btn_fire'},
+    {name: 'water_1 💧', id: 'btn_water'},
+    {name: 'earth_1 🌱', id: 'btn_earth'},
 )
 
+//Main Array
 mokepones.push(hipodoge, capipepo, ratigueya)
 
 //Functions
@@ -119,10 +128,7 @@ function startGame() {
     //Button Pet Selector
     buttonPetPlayer.addEventListener("click", selectPetPlayer)
 
-    //Creating player attack
-    buttonFire.addEventListener("click", attackFire)
-    buttonWater.addEventListener("click", attackWater)
-    buttonEarth.addEventListener("click", attackEarth)
+    //Creating player attack (Moved tp another function)
 
     //Restart button
     restartButton.addEventListener("click", restartGame)
@@ -141,23 +147,64 @@ function selectPetPlayer() {
     if (inputHipodoge.checked){
         alert("Seleccionaste a Hipodoge")
         spanPetplayer.innerText = inputHipodoge.id
+        petPlayer = inputHipodoge.id
     } else if (inputCapipepo.checked){
         alert("Seleccionaste a Capipepo")
         spanPetplayer.innerText = inputCapipepo.id
+        petPlayer = inputCapipepo.id
     } else if (inputRatigueya.checked){
         alert("Seleccionaste a Ratigueya")
         spanPetplayer.innerText = inputRatigueya.id
+        petPlayer = inputRatigueya.id
     } else {
         alert("Selecciona una mascota por favor")
         restartGame()
     }
 
+    //Getting pet attacks
+    getAttacks(petPlayer)
+
     selectPetEnemy()
 
     //Select a pet before attack logic
-    buttonFire.disabled = false
-    buttonWater.disabled = false
-    buttonEarth.disabled = false
+    // buttonFire.disabled = false
+    // buttonWater.disabled = false
+    // buttonEarth.disabled = false
+}
+
+//Getting attacks from arrays
+
+function getAttacks(petPlayer){
+    let petAbilities
+
+    for (let i = 0; i < mokepones.length; i++) {
+        if (petPlayer === mokepones[i].name){
+            petAbilities = mokepones[i].attacks
+        }
+    }
+    console.log(petAbilities)
+    showAttacks(petAbilities)
+}    
+
+//Show attacks in HTML
+
+function showAttacks(petAttacks){
+    petAttacks.forEach((attack) => {
+        mokeponAttacks = `
+            <button class="attack_button" id="${attack.id}">${attack.name}</button>
+        `
+        pet_Abilities_Container.innerHTML += mokeponAttacks
+    })
+
+    //Creating Player attack buttons variables
+    buttonFire = document.getElementById('btn_fire')
+    buttonWater = document.getElementById('btn_water')
+    buttonEarth = document.getElementById('btn_earth')
+
+    //Player attack EventListeners
+    buttonFire.addEventListener("click", attackFire)
+    buttonWater.addEventListener("click", attackWater)
+    buttonEarth.addEventListener("click", attackEarth)
 }
 
 //Creating enemy pet
