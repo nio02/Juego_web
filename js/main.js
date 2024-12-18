@@ -52,8 +52,15 @@ let buttonEarth
 let buttons = []
 let newPlayerAttack = []
 
+let indexPlayerAttack
+let indexEnemyAttack
+
 //Enemy propierties
 let enemyPetAbilities
+
+// New game Logi
+let playerWins = 0
+let enemyWins = 0
 
 //Creating Classes
 
@@ -207,9 +214,9 @@ function showAttacks(petAttacks){
     buttons = document.querySelectorAll('.aButton')
     
     //Player attack EventListeners
-    buttonFire.addEventListener("click", attackFire)
-    buttonWater.addEventListener("click", attackWater)
-    buttonEarth.addEventListener("click", attackEarth)
+    // buttonFire.addEventListener("click", attackFire)
+    // buttonWater.addEventListener("click", attackWater)
+    // buttonEarth.addEventListener("click", attackEarth)
 }
 
 //New combat logic based on victories, with arrays to every player attack and enemy attacks
@@ -227,7 +234,7 @@ function attackSequence() {
                 console.log(newPlayerAttack)
                 button.style.background = '#112f58'
             } else if (e.target.textContent === 'earth_1 🌱' || e.target.textContent === 'earth_2 🌱' || e.target.textContent === 'earth_3 🌱') {
-                newPlayerAttack.push('AGUA')
+                newPlayerAttack.push('TIERRA')
                 console.log(newPlayerAttack)
                 button.style.background = '#112f58'
             }
@@ -266,30 +273,30 @@ function selectPetEnemy(){
     // }
 }
 
-//Creating attack functions
+//Creating attack functions (old logic)
 
-function attackFire() {
-    playerAttack = "FUEGO"
+// function attackFire() {
+//     playerAttack = "FUEGO"
     
-    enemyRandomAttack()
-}
+//     enemyRandomAttack()
+// }
 
-function attackWater() {
-    playerAttack = "AGUA"
+// function attackWater() {
+//     playerAttack = "AGUA"
 
-    enemyRandomAttack()
-}
+//     enemyRandomAttack()
+// }
 
-function attackEarth() {
-    playerAttack = "TIERRA"
+// function attackEarth() {
+//     playerAttack = "TIERRA"
 
-    enemyRandomAttack()
-}
+//     enemyRandomAttack()
+// }
 
 function enemyRandomAttack() {
     let randomAttack = randomNumber(0, enemyPetAbilities.length - 1)
     
-    //old logic
+    // old logic
     // if (randomAttack == 1){
     //     enemyAttack = "FUEGO"
     // } else if (randomAttack == 2){
@@ -307,34 +314,77 @@ function enemyRandomAttack() {
     }
 
     console.log(enemyAttack)
+    
+    beginCombat()
+}
 
-    gameCombat()
- 
+//Combat based on victories 
+
+function beginCombat() {
+    //When player attacks array is completed, enemy responds
+    if (newPlayerAttack.length === 5) {
+        gameCombat()
+    }
+}
+
+//Index support Function
+
+function indexBothPlayers (player, enemy) {
+    indexPlayerAttack = newPlayerAttack[player]
+    indexEnemyAttack = enemyAttack[enemy]
 }
 
 //Game result logic
 
 function gameCombat() {
     
-    if (playerAttack == enemyAttack){
-        createMessage('¡EMPATE!')
-    } else if (playerAttack == "AGUA" && enemyAttack == 'FUEGO'){
-        createMessage('¡GANASTE!')
-        enemyLife--
-        spanEnemyLife.innerText = enemyLife
-    } else if (playerAttack == 'FUEGO' && enemyAttack == 'TIERRA'){
-        createMessage('¡GANASTE!')
-        enemyLife--
-        spanEnemyLife.innerText = enemyLife
-    } else if (playerAttack == 'TIERRA' && enemyAttack == 'AGUA'){
-        createMessage('¡GANASTE!')
-        enemyLife--
-        spanEnemyLife.innerText = enemyLife
-    } else {
-        createMessage('¡PERDISTE!')
-        playerLife--
-        spanPlayerLife.innerText = playerLife
-    }
+    for (let i = 0; i < newPlayerAttack.length; i++) {
+        if (newPlayerAttack[i] === enemyAttack[i]) {
+            indexBothPlayers(i, i)
+            createMessage('¡EMPATE!')
+            
+        } else if (newPlayerAttack[i] == "AGUA" && enemyAttack[i] == "FUEGO"){
+            indexBothPlayers(i, i)
+            createMessage('¡GANASTE!')
+            playerWins++
+            spanPlayerLife.innerText = playerWins
+        } else if (newPlayerAttack[i] == "FUEGO" && enemyAttack[i] == "TIERRA"){
+            indexBothPlayers(i, i)
+            createMessage('¡GANASTE!')
+            playerWins++
+            spanPlayerLife.innerText = playerWins
+        } else if (newPlayerAttack[i] == "TIERRA" && enemyAttack[i] == "AGUA"){
+            indexBothPlayers(i, i)
+            createMessage('¡GANASTE!')
+            playerWins++
+            spanPlayerLife.innerText = playerWins
+        } else {
+            indexBothPlayers(i, i)
+            createMessage('¡PERDISTE!')
+            enemyWins++
+            spanEnemyLife.innerText = enemyWins
+        }
+    } 
+
+    // if (playerAttack == enemyAttack){
+    //     createMessage('¡EMPATE!')
+    // } else if (playerAttack == "AGUA" && enemyAttack == 'FUEGO'){
+    //     createMessage('¡GANASTE!')
+    //     enemyLife--
+    //     spanEnemyLife.innerText = enemyLife
+    // } else if (playerAttack == 'FUEGO' && enemyAttack == 'TIERRA'){
+    //     createMessage('¡GANASTE!')
+    //     enemyLife--
+    //     spanEnemyLife.innerText = enemyLife
+    // } else if (playerAttack == 'TIERRA' && enemyAttack == 'AGUA'){
+    //     createMessage('¡GANASTE!')
+    //     enemyLife--
+    //     spanEnemyLife.innerText = enemyLife
+    // } else {
+    //     createMessage('¡PERDISTE!')
+    //     playerLife--
+    //     spanPlayerLife.innerText = playerLife
+    // }
 
     lifeStatus()
 }
@@ -347,8 +397,8 @@ function createMessage(combatResult) {
     let newAttackEnemy = document.createElement('p')
 
     sectionResult.innerText = combatResult
-    newAttackPlayer.innerText = playerAttack
-    newAttackEnemy.innerText = enemyAttack
+    newAttackPlayer.innerText = indexPlayerAttack
+    newAttackEnemy.innerText = indexEnemyAttack
     // let parrafo = document.createElement('p')
     // parrafo.innerText = 'Tu mascota atacó con ' + playerAttack + '. La mascota del enemigo atacó con ' + enemyAttack + '. ' + combatResult + '.'
 
@@ -359,9 +409,18 @@ function createMessage(combatResult) {
 //Checking Lifes
 
 function lifeStatus(){
-    if (enemyLife == 0){
+    //Old Logic
+    // if (enemyLife == 0){
+    //     createFinalMessage('¡Felicitaciones! Ganaste el juego :)')
+    // } else if (playerLife == 0){
+    //     createFinalMessage('Lo siento, perdiste :(')
+    // }
+
+    if (playerWins === enemyWins) {
+        createFinalMessage('¡Ha sido un empate!')
+    } else if (playerWins > enemyWins) {
         createFinalMessage('¡Felicitaciones! Ganaste el juego :)')
-    } else if (playerLife == 0){
+    } else {
         createFinalMessage('Lo siento, perdiste :(')
     }
 }
