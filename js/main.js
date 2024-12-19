@@ -26,6 +26,9 @@ const sectionMessages = document.getElementById('result')
 const cardsContainer = document.getElementById('cards_container')
 //Attack Container
 const attacksContainer = document.getElementById('pet_Abilities_Container')
+//Maps Mechanics canvas
+const sectionViewMap = document.getElementById('view_map')
+const map = document.getElementById('map')
 
 //Creating Arrays
 let mokepones = []
@@ -58,9 +61,12 @@ let indexEnemyAttack
 //Enemy propierties
 let enemyPetAbilities
 
-// New game Logi
+// New game Logic
 let playerWins = 0
 let enemyWins = 0
+
+//Maps Mechanics (canvas)
+let painting = map.getContext("2d")
 
 //Creating Classes
 
@@ -118,6 +124,9 @@ function startGame() {
     //Hiding restart button at start
     sectionReboot.style.display = 'none'
 
+    //Hiding map 
+    sectionViewMap.style.display = 'none'
+
     //Adding in order to get data from arrays
     mokepones.forEach((mokepon) => {
         mokeponesOptions = `
@@ -152,6 +161,19 @@ function selectPetPlayer() {
 
     //Hide Pet Selector
     sectionSelectPet.style.display = 'none'
+
+    //Showing map
+    sectionViewMap.style.display = 'flex'
+    //Mapping?
+    let petImage = new Image()
+    petImage.src = capipepo.picture
+    painting.drawImage(
+        petImage,
+        20,
+        40,
+        100,
+        100
+    )
 
     //Choose Pet Logic
     if (inputHipodoge.checked){

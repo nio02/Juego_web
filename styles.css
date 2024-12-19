@@ -166,6 +166,16 @@ input:checked + label {
     flex-direction: column;
 }
 
+#view_map {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#map {
+    border: 2px solid white;
+}
+
 @media (max-width: 360px){
     .cards, .attack_options {
         flex-direction: column;
