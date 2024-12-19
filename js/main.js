@@ -229,14 +229,17 @@ function attackSequence() {
                 newPlayerAttack.push('FUEGO')
                 console.log(newPlayerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true //New endgame cap
             } else if (e.target.textContent === 'water_1 💧' || e.target.textContent === 'water_2 💧' || e.target.textContent === 'water_3 💧'){
                 newPlayerAttack.push('AGUA')
                 console.log(newPlayerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true //New endgame cap
             } else if (e.target.textContent === 'earth_1 🌱' || e.target.textContent === 'earth_2 🌱' || e.target.textContent === 'earth_3 🌱') {
                 newPlayerAttack.push('TIERRA')
                 console.log(newPlayerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true //New endgame cap
             }
 
             enemyRandomAttack()
@@ -430,10 +433,10 @@ function lifeStatus(){
 function createFinalMessage(finalResult) {
     sectionMessages.innerText = finalResult
 
-    //End game cap
-    buttonFire.disabled = true
-    buttonWater.disabled = true
-    buttonEarth.disabled = true
+    //End game cap (old)
+    // buttonFire.disabled = true
+    // buttonWater.disabled = true
+    // buttonEarth.disabled = true
 
     //Show restart button at endgame
     sectionReboot.style.display = 'block'
