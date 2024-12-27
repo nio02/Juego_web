@@ -68,6 +68,10 @@ let enemyWins = 0
 //Maps Mechanics (canvas)
 let painting = map.getContext("2d")
 
+//Map background
+let mapBackground = new Image()
+mapBackground.src = "./assets/mokemap.png"
+
 //Movement Variables
 let interval
 
@@ -175,7 +179,7 @@ function selectPetPlayer() {
 
     //Showing map
     sectionViewMap.style.display = 'flex'
-    interval = setInterval(drawPet, 50)
+    startMap()
 
     //Choose Pet Logic
     if (inputHipodoge.checked){
@@ -519,6 +523,34 @@ function moveCapipepoDown(){
 function stopMovement(){
     capipepo.speedX = 0
     capipepo.speedY = 0
+}
+
+function keyHolded(event){
+    switch(event.key) {
+        case 'ArrowUp':
+            moveCapipepoUp()
+            break
+        case 'ArrowDown':
+            moveCapipepoDown()
+            break
+        case 'ArrowLeft':
+            moveCapipepoLeft()
+            break
+        case 'ArrowRight':
+            moveCapipepoRight()
+        default:
+            break;
+    }
+}
+
+function startMap() {
+    map.width = 800
+    map.height = 600
+    //Drawing Pet each 50 miliseconds
+    interval = setInterval(drawPet, 50)
+    //Keyboard based movement
+    window.addEventListener('keydown', keyHolded)
+    window.addEventListener('keyup', stopMovement)
 }
 
 //Start the game
