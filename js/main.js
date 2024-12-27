@@ -75,7 +75,13 @@ class Mokepon {
         this.name = name
         this.picture = picture
         this.life = life
-        this.attacks = [] 
+        this.attacks = []
+        this.x = 20
+        this.y = 30
+        this.width = 80
+        this.height = 80
+        this.mapPicture = new Image()
+        this.mapPicture.src = picture 
     }
 }
 
@@ -164,16 +170,6 @@ function selectPetPlayer() {
 
     //Showing map
     sectionViewMap.style.display = 'flex'
-    //Mapping?
-    let petImage = new Image()
-    petImage.src = capipepo.picture
-    painting.drawImage(
-        petImage,
-        20,
-        40,
-        100,
-        100
-    )
 
     //Choose Pet Logic
     if (inputHipodoge.checked){
@@ -202,6 +198,9 @@ function selectPetPlayer() {
     // buttonFire.disabled = false
     // buttonWater.disabled = false
     // buttonEarth.disabled = false
+
+    //Showing Pet
+    drawPet()
 }
 
 //Getting attacks from arrays
@@ -468,6 +467,43 @@ function createFinalMessage(finalResult) {
 
 function restartGame(){
     location.reload()
+}
+
+//Drawing Pet
+
+function drawPet (){
+    painting.clearRect(0, 0, map.width, map.height);
+    //Mapping? (Adding image inside contructor)
+    painting.drawImage(
+        capipepo.mapPicture,
+        capipepo.x,
+        capipepo.y,
+        capipepo.width,
+        capipepo.height
+    )
+    
+}
+
+//OnMap Movement Functions
+
+function moveCapipepoLeft(){
+    capipepo.x = capipepo.x - 5
+    drawPet()
+}
+
+function moveCapipepoRight(){
+    capipepo.x = capipepo.x + 5
+    drawPet()
+}
+
+function moveCapipepoUp(){
+    capipepo.y = capipepo.y - 5
+    drawPet()
+}
+
+function moveCapipepoDown(){
+    capipepo.y = capipepo.y + 5
+    drawPet()
 }
 
 //Start the game
