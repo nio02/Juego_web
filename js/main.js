@@ -68,6 +68,9 @@ let enemyWins = 0
 //Maps Mechanics (canvas)
 let painting = map.getContext("2d")
 
+//Movement Variables
+let interval
+
 //Creating Classes
 
 class Mokepon {
@@ -81,7 +84,9 @@ class Mokepon {
         this.width = 80
         this.height = 80
         this.mapPicture = new Image()
-        this.mapPicture.src = picture 
+        this.mapPicture.src = picture
+        this.speedX = 0
+        this.speedY = 0
     }
 }
 
@@ -170,6 +175,7 @@ function selectPetPlayer() {
 
     //Showing map
     sectionViewMap.style.display = 'flex'
+    interval = setInterval(drawPet, 50)
 
     //Choose Pet Logic
     if (inputHipodoge.checked){
@@ -472,6 +478,10 @@ function restartGame(){
 //Drawing Pet
 
 function drawPet (){
+    //If it has speed, localitation changes
+    capipepo.x = capipepo.x + capipepo.speedX
+    capipepo.y = capipepo.y + capipepo.speedY
+
     painting.clearRect(0, 0, map.width, map.height);
     //Mapping? (Adding image inside contructor)
     painting.drawImage(
@@ -486,24 +496,29 @@ function drawPet (){
 
 //OnMap Movement Functions
 
+//Old movement logic (priting images)
+// capipepo.x = capipepo.x - 5
+// drawPet()
+
 function moveCapipepoLeft(){
-    capipepo.x = capipepo.x - 5
-    drawPet()
+    capipepo.speedX = -5    
 }
 
 function moveCapipepoRight(){
-    capipepo.x = capipepo.x + 5
-    drawPet()
+    capipepo.speedX = 5 
 }
 
 function moveCapipepoUp(){
-    capipepo.y = capipepo.y - 5
-    drawPet()
+    capipepo.speedY = -5
 }
 
 function moveCapipepoDown(){
-    capipepo.y = capipepo.y + 5
-    drawPet()
+    capipepo.speedY = 5
+}
+
+function stopMovement(){
+    capipepo.speedX = 0
+    capipepo.speedY = 0
 }
 
 //Start the game
