@@ -75,6 +75,7 @@ mapBackground.src = "./assets/mokemap.png"
 //Movement Variables
 let interval
 
+let petPlayerObject
 //Creating Classes
 
 class Mokepon {
@@ -177,9 +178,7 @@ function selectPetPlayer() {
     //Hide Pet Selector
     sectionSelectPet.style.display = 'none'
 
-    //Showing map
-    sectionViewMap.style.display = 'flex'
-    startMap()
+    
 
     //Choose Pet Logic
     if (inputHipodoge.checked){
@@ -202,6 +201,10 @@ function selectPetPlayer() {
     //Getting pet attacks
     getAttacks(petPlayer)
 
+    //Showing map
+    sectionViewMap.style.display = 'flex'
+    startMap()
+
     selectPetEnemy()
 
     //Select a pet before attack logic
@@ -210,7 +213,7 @@ function selectPetPlayer() {
     // buttonEarth.disabled = false
 
     //Showing Pet
-    drawPet()
+    drawCanvas()
 }
 
 //Getting attacks from arrays
@@ -481,19 +484,27 @@ function restartGame(){
 
 //Drawing Pet
 
-function drawPet (){
+function drawCanvas (){
     //If it has speed, localitation changes
-    capipepo.x = capipepo.x + capipepo.speedX
-    capipepo.y = capipepo.y + capipepo.speedY
+    petPlayerObject.x = petPlayerObject.x + petPlayerObject.speedX
+    petPlayerObject.y = petPlayerObject.y + petPlayerObject.speedY
 
     painting.clearRect(0, 0, map.width, map.height);
+    //Painting Background
+    painting.drawImage(
+        mapBackground,
+        0,
+        0,
+        map.width,
+        map.height
+    )
     //Mapping? (Adding image inside contructor)
     painting.drawImage(
-        capipepo.mapPicture,
-        capipepo.x,
-        capipepo.y,
-        capipepo.width,
-        capipepo.height
+        petPlayerObject.mapPicture,
+        petPlayerObject.x,
+        petPlayerObject.y,
+        petPlayerObject.width,
+        petPlayerObject.height
     )
     
 }
@@ -502,27 +513,27 @@ function drawPet (){
 
 //Old movement logic (priting images)
 // capipepo.x = capipepo.x - 5
-// drawPet()
+// drawCanvas()
 
 function moveCapipepoLeft(){
-    capipepo.speedX = -5    
+    petPlayerObject.speedX = -5    
 }
 
 function moveCapipepoRight(){
-    capipepo.speedX = 5 
+    petPlayerObject.speedX = 5 
 }
 
 function moveCapipepoUp(){
-    capipepo.speedY = -5
+    petPlayerObject.speedY = -5
 }
 
 function moveCapipepoDown(){
-    capipepo.speedY = 5
+    petPlayerObject.speedY = 5
 }
 
 function stopMovement(){
-    capipepo.speedX = 0
-    capipepo.speedY = 0
+    petPlayerObject.speedX = 0
+    petPlayerObject.speedY = 0
 }
 
 function keyHolded(event){
@@ -543,14 +554,27 @@ function keyHolded(event){
     }
 }
 
+//Display Map
+
 function startMap() {
-    map.width = 800
-    map.height = 600
+    map.width = 360
+    map.height = 240
+    //Pet Player
+    petPlayerObject = getPetObject(petPlayer)
     //Drawing Pet each 50 miliseconds
-    interval = setInterval(drawPet, 50)
+    interval = setInterval(drawCanvas, 50)
     //Keyboard based movement
     window.addEventListener('keydown', keyHolded)
     window.addEventListener('keyup', stopMovement)
+}
+
+//Getting Pet Assets
+function getPetObject(){
+    for (let i = 0; i < mokepones.length; i++) {
+        if (petPlayer === mokepones[i].name){
+            return mokepones[i]
+        }
+    }
 }
 
 //Start the game
