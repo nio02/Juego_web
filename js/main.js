@@ -79,26 +79,39 @@ let petPlayerObject
 //Creating Classes
 
 class Mokepon {
-    constructor(name, picture, life){ //Pets properties
+    constructor(name, picture, life, mapPokemonIcon, x = 10, y = 10){ //Pets properties
         this.name = name
         this.picture = picture
         this.life = life
         this.attacks = []
-        this.x = 20
-        this.y = 30
-        this.width = 80
-        this.height = 80
+        this.x = x
+        this.y = y
+        this.width = 40
+        this.height = 40
         this.mapPicture = new Image()
-        this.mapPicture.src = picture
+        this.mapPicture.src = mapPokemonIcon
         this.speedX = 0
         this.speedY = 0
+    }
+    drawMokepon(){
+        painting.drawImage(
+            this.mapPicture,
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )
     }
 }
 
 //Creating Objects (?)
-let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5)
-let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5)
-let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5)
+let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodogeicon.png')
+let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepoicon.png')
+let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5,'./assets/ratigueyaicon.png')
+//Enemies
+let enemyHipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodogeicon.png', 80, 120)
+let enemyCapipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepoicon.png', 150, 95)
+let enemyRatigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5,'./assets/ratigueyaicon.png', 200, 190)
 
 //Adding objects to the array (learning purposes)
 //mokepones.push(hipodoge, capipepo, ratigueya)
@@ -121,6 +134,31 @@ capipepo.attacks.push(
 )
 
 ratigueya.attacks.push(
+    {name: 'fire_1 🔥', id: 'btn_fire'},
+    {name: 'fire_2 🔥', id: 'btn_fire'},
+    {name: 'fire_3 🔥', id: 'btn_fire'},
+    {name: 'water_1 💧', id: 'btn_water'},
+    {name: 'earth_1 🌱', id: 'btn_earth'},
+)
+
+//Adding Enemy Pets attacks
+enemyHipodoge.attacks.push(
+    {name: 'water_1 💧', id: 'btn_water'},
+    {name: 'water_2 💧', id: 'btn_water'},
+    {name: 'water_3 💧', id: 'btn_water'},
+    {name: 'fire_1 🔥', id: 'btn_fire'},
+    {name: 'earth_1 🌱', id: 'btn_earth'},
+)
+
+enemyCapipepo.attacks.push(
+    {name: 'earth_1 🌱', id: 'btn_earth'},
+    {name: 'earth_2 🌱', id: 'btn_earth'},
+    {name: 'earth_3 🌱', id: 'btn_earth'},
+    {name: 'water_1 💧', id: 'btn_water'},
+    {name: 'fire_1 🔥', id: 'btn_fire'},
+)
+
+enemyRatigueya.attacks.push(
     {name: 'fire_1 🔥', id: 'btn_fire'},
     {name: 'fire_2 🔥', id: 'btn_fire'},
     {name: 'fire_3 🔥', id: 'btn_fire'},
@@ -173,7 +211,7 @@ function startGame() {
 
 function selectPetPlayer() {
     //Show Elements After Choose A Pet
-    sectionSelectAttack.style.display = 'flex'
+    // sectionSelectAttack.style.display = 'flex'
 
     //Hide Pet Selector
     sectionSelectPet.style.display = 'none'
@@ -205,7 +243,7 @@ function selectPetPlayer() {
     sectionViewMap.style.display = 'flex'
     startMap()
 
-    selectPetEnemy()
+    // selectPetEnemy()
 
     //Select a pet before attack logic
     // buttonFire.disabled = false
@@ -287,13 +325,13 @@ function randomNumber(min, max){
     return Math.floor((((max + 1) - min) * Math.random()) + min)  //Math.random drops a number between zero and one, but never will be one. This is why we add one to "max" valor in this function.
 }
 
-function selectPetEnemy(){
-    let randomPet = randomNumber(0, mokepones.length - 1)
+function selectPetEnemy(enemy){
+    // let randomPet = randomNumber(0, mokepones.length - 1)
 
     //Fixed logic using array index
-    spanPetEnemy.innerText = mokepones[randomPet].name
+    spanPetEnemy.innerText = enemy.name
     
-    enemyPetAbilities = mokepones[randomPet].attacks
+    enemyPetAbilities = enemy.attacks
 
     //Added event listener to new buttons
     attackSequence()
@@ -499,14 +537,17 @@ function drawCanvas (){
         map.height
     )
     //Mapping? (Adding image inside contructor)
-    painting.drawImage(
-        petPlayerObject.mapPicture,
-        petPlayerObject.x,
-        petPlayerObject.y,
-        petPlayerObject.width,
-        petPlayerObject.height
-    )
-    
+    petPlayerObject.drawMokepon()
+    //Adding enemy pets on map
+    enemyHipodoge.drawMokepon()
+    enemyCapipepo.drawMokepon()
+    enemyRatigueya.drawMokepon()
+    //Checking Collisions
+    if (petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0){
+        checkCollision(enemyHipodoge)
+        checkCollision(enemyCapipepo)
+        checkCollision(enemyRatigueya)
+    }
 }
 
 //OnMap Movement Functions
@@ -577,6 +618,35 @@ function getPetObject(){
     }
 }
 
-//Start the game
+//Collisions in game (Based on square images)
+function checkCollision(enemy){
+    const upEnemy = enemy.y
+    const downEnemy = enemy.y + enemy.height
+    const rightEnemy = enemy.x + enemy.width
+    const leftEnemy = enemy.x
 
+    const upPet = petPlayerObject.y
+    const downPet = petPlayerObject.y + petPlayerObject.height
+    const rightPet = petPlayerObject.x + petPlayerObject.width
+    const leftPet = petPlayerObject.x
+
+    if(
+        downPet < upEnemy ||
+        upPet > downEnemy ||
+        rightPet < leftEnemy ||
+        leftPet > rightEnemy
+    ) {
+        return
+    }
+
+    stopMovement()
+    selectPetEnemy(enemy)
+    //Show pet attaks
+    sectionSelectAttack.style.display = 'flex'
+    //Hide Map
+    sectionViewMap.style.display = 'none'
+    alert("Hay Colisión con " + enemy.name)
+}
+
+//Start the game
 window.addEventListener("load", startGame)
