@@ -179,6 +179,8 @@ input:checked + label {
 .map_controls {
     margin-top: 20px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .control_btn {
@@ -197,12 +199,19 @@ input:checked + label {
     color: #041562;
 }
 
-@media (max-width: 360px){
+@media (max-width: 560px){
     .cards, .attack_options {
         flex-direction: column;
     }
 
     #pet_selector {
         height: auto;
+    }
+}
+
+@media (max-width: 310px){
+    .map_controls div {
+        display: flex;
+        flex-direction: column;
     }
 }

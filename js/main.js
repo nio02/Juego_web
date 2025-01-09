@@ -75,7 +75,23 @@ mapBackground.src = "./assets/mokemap.png"
 //Movement Variables
 let interval
 
+//Getting Player Array
 let petPlayerObject
+
+//Responsive Map Variables
+let wantedHeight
+let mapWidth = window.innerWidth - 20
+const maxWidthMap = 450
+
+if (mapWidth > maxWidthMap){
+    mapWidth = maxWidthMap - 20
+}
+
+wantedHeight = mapWidth * 600/800
+
+map.width = mapWidth
+map.height = wantedHeight
+
 //Creating Classes
 
 class Mokepon {
@@ -84,10 +100,10 @@ class Mokepon {
         this.picture = picture
         this.life = life
         this.attacks = []
-        this.x = x
-        this.y = y
         this.width = 40
         this.height = 40
+        this.x = x
+        this.y = y
         this.mapPicture = new Image()
         this.mapPicture.src = mapPokemonIcon
         this.speedX = 0
@@ -215,8 +231,6 @@ function selectPetPlayer() {
 
     //Hide Pet Selector
     sectionSelectPet.style.display = 'none'
-
-    
 
     //Choose Pet Logic
     if (inputHipodoge.checked){
@@ -598,8 +612,6 @@ function keyHolded(event){
 //Display Map
 
 function startMap() {
-    map.width = 360
-    map.height = 240
     //Pet Player
     petPlayerObject = getPetObject(petPlayer)
     //Drawing Pet each 50 miliseconds

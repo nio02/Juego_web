@@ -54,15 +54,19 @@
     </section>
 
     <section id="view_map">
-        <h1 class="title">Recorre el mapa con tu mokepon</h1>
+        <h2 class="subtitle">Recorre el mapa con tu mokepon</h2>
         <canvas id="map">
             
         </canvas>
         <div class="map_controls">
-            <button onmouseup="stopMovement()" onmousedown="moveCapipepoLeft()" class="control_btn" id="control_left">Izquierda</button>
-            <button onmouseup="stopMovement()" onmousedown="moveCapipepoUp()" class="control_btn" id="control_up">Arriba</button>
-            <button onmouseup="stopMovement()" onmousedown="moveCapipepoDown()" class="control_btn" id="control_down">Abajo</button>
-            <button onmouseup="stopMovement()" onmousedown="moveCapipepoRight()" class="control_btn" id="control_right">Derecha</button>
+            <div>
+                <button onmouseup="stopMovement()" onmousedown="moveCapipepoUp()" class="control_btn" id="control_up">Arriba</button>
+            </div>
+            <div>
+                <button onmouseup="stopMovement()" onmousedown="moveCapipepoLeft()" class="control_btn" id="control_left">Izquierda</button>
+                <button onmouseup="stopMovement()" onmousedown="moveCapipepoDown()" class="control_btn" id="control_down">Abajo</button>
+                <button onmouseup="stopMovement()" onmousedown="moveCapipepoRight()" class="control_btn" id="control_right">Derecha</button>
+            </div>
         </div>
     </section>
 
