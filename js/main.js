@@ -98,15 +98,16 @@ map.height = wantedHeight
 //Creating Classes
 
 class Mokepon {
-    constructor(name, picture, life, mapPokemonIcon, x = 10, y = 10){ //Pets properties
+    constructor(name, picture, life, mapPokemonIcon, x, y, id = null){ //Pets properties
+        this.id = id
         this.name = name
         this.picture = picture
         this.life = life
         this.attacks = []
         this.width = 40
         this.height = 40
-        this.x = x
-        this.y = y
+        this.x = randomNumber(0, map.width - this.width)
+        this.y = randomNumber(0, map.height - this.height)
         this.mapPicture = new Image()
         this.mapPicture.src = mapPokemonIcon
         this.speedX = 0
@@ -128,62 +129,47 @@ let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attac
 let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepoicon.png')
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5,'./assets/ratigueyaicon.png')
 //Enemies
-let enemyHipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodogeicon.png', 80, 120)
-let enemyCapipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepoicon.png', 150, 95)
-let enemyRatigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5,'./assets/ratigueyaicon.png', 200, 190)
+// let enemyHipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodogeicon.png')
+// let enemyCapipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepoicon.png')
+// let enemyRatigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5,'./assets/ratigueyaicon.png')
 
 //Adding objects to the array (learning purposes)
 //mokepones.push(hipodoge, capipepo, ratigueya)
 
-//Adding pet attacks (array/dictioanry)
-hipodoge.attacks.push(
+//Unified player and enemies attacks
+const hipodoge_attacks = [
     {name: 'water_1 💧', id: 'btn_water'},
     {name: 'water_2 💧', id: 'btn_water'},
     {name: 'water_3 💧', id: 'btn_water'},
     {name: 'fire_1 🔥', id: 'btn_fire'},
     {name: 'earth_1 🌱', id: 'btn_earth'},
-)
+]
 
-capipepo.attacks.push(
+const capipepo_attacks = [
     {name: 'earth_1 🌱', id: 'btn_earth'},
     {name: 'earth_2 🌱', id: 'btn_earth'},
     {name: 'earth_3 🌱', id: 'btn_earth'},
     {name: 'water_1 💧', id: 'btn_water'},
     {name: 'fire_1 🔥', id: 'btn_fire'},
-)
+]
 
-ratigueya.attacks.push(
+const ratigueya_attacks = [
     {name: 'fire_1 🔥', id: 'btn_fire'},
     {name: 'fire_2 🔥', id: 'btn_fire'},
     {name: 'fire_3 🔥', id: 'btn_fire'},
     {name: 'water_1 💧', id: 'btn_water'},
     {name: 'earth_1 🌱', id: 'btn_earth'},
-)
+]
+
+//Adding pet attacks (array/dictioanry)
+hipodoge.attacks.push(...hipodoge_attacks)
+capipepo.attacks.push(...capipepo_attacks)
+ratigueya.attacks.push(...ratigueya_attacks)
 
 //Adding Enemy Pets attacks
-enemyHipodoge.attacks.push(
-    {name: 'water_1 💧', id: 'btn_water'},
-    {name: 'water_2 💧', id: 'btn_water'},
-    {name: 'water_3 💧', id: 'btn_water'},
-    {name: 'fire_1 🔥', id: 'btn_fire'},
-    {name: 'earth_1 🌱', id: 'btn_earth'},
-)
-
-enemyCapipepo.attacks.push(
-    {name: 'earth_1 🌱', id: 'btn_earth'},
-    {name: 'earth_2 🌱', id: 'btn_earth'},
-    {name: 'earth_3 🌱', id: 'btn_earth'},
-    {name: 'water_1 💧', id: 'btn_water'},
-    {name: 'fire_1 🔥', id: 'btn_fire'},
-)
-
-enemyRatigueya.attacks.push(
-    {name: 'fire_1 🔥', id: 'btn_fire'},
-    {name: 'fire_2 🔥', id: 'btn_fire'},
-    {name: 'fire_3 🔥', id: 'btn_fire'},
-    {name: 'water_1 💧', id: 'btn_water'},
-    {name: 'earth_1 🌱', id: 'btn_earth'},
-)
+// enemyHipodoge.attacks.push(...hipodoge_attacks)
+// enemyCapipepo.attacks.push(...capipepo_attacks)
+// enemyRatigueya.attacks.push(...ratigueya_attacks)
 
 //Main Array
 mokepones.push(hipodoge, capipepo, ratigueya)
@@ -591,15 +577,15 @@ function drawCanvas (){
     //Sending to Backend Pet position
     sendPosition(petPlayerObject.x, petPlayerObject.y)
     //Adding enemy pets on map
-    enemyHipodoge.drawMokepon()
-    enemyCapipepo.drawMokepon()
-    enemyRatigueya.drawMokepon()
+    // enemyHipodoge.drawMokepon()
+    // enemyCapipepo.drawMokepon()
+    // enemyRatigueya.drawMokepon()
     //Checking Collisions
-    if (petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0){
-        checkCollision(enemyHipodoge)
-        checkCollision(enemyCapipepo)
-        checkCollision(enemyRatigueya)
-    }
+    // if (petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0){
+    //     checkCollision(enemyHipodoge)
+    //     checkCollision(enemyCapipepo)
+    //     checkCollision(enemyRatigueya)
+    // }
 }
 
 //Sending to Backend Pet Position
@@ -619,6 +605,24 @@ function sendPosition(x, y) {
             res.json()
                 .then(function ({ enemiesPlayers }) {
                     console.log(enemiesPlayers)
+                    enemiesPlayers.forEach(function (enemie) {
+                        let enemieMokepon = null
+                        if (enemie.mokepon != undefined) {
+                            const mokeponName = enemie.mokepon.name || ""
+                            if (mokeponName === "Hipodoge") {
+                                enemieMokepon = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/hipodogeicon.png')
+                            } else if (mokeponName === "Capipepo") {
+                                enemieMokepon = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/capipepoicon.png')
+                            } else if (mokeponName === "Ratigueya") {
+                                enemieMokepon = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5,'./assets/ratigueyaicon.png')
+                            }
+
+                            enemieMokepon.x = enemie.x
+                            enemieMokepon.y = enemie.y
+
+                            enemieMokepon.drawMokepon()
+                        }
+                    })
                 })
         }
     })
