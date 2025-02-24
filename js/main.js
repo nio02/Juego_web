@@ -32,6 +32,8 @@ const map = document.getElementById('map')
 
 //Creating Arrays
 let mokepones = []
+//Enemy Mokepons New Array
+let enemiesMokepones = []
 
 //Creating Global Var
 let playerAttack
@@ -576,10 +578,16 @@ function drawCanvas (){
     petPlayerObject.drawMokepon()
     //Sending to Backend Pet position
     sendPosition(petPlayerObject.x, petPlayerObject.y)
-    //Adding enemy pets on map
+    //Adding enemy pets on map (dinamic)
+    enemiesMokepones.forEach(function (mokepon) {
+        mokepon.drawMokepon()
+    })
+
+    //Adding enemy pets on map (old)
     // enemyHipodoge.drawMokepon()
     // enemyCapipepo.drawMokepon()
     // enemyRatigueya.drawMokepon()
+    
     //Checking Collisions
     // if (petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0){
     //     checkCollision(enemyHipodoge)
@@ -605,7 +613,7 @@ function sendPosition(x, y) {
             res.json()
                 .then(function ({ enemiesPlayers }) {
                     console.log(enemiesPlayers)
-                    enemiesPlayers.forEach(function (enemie) {
+                    enemiesMokepones = enemiesPlayers.map(function (enemie) {
                         let enemieMokepon = null
                         if (enemie.mokepon != undefined) {
                             const mokeponName = enemie.mokepon.name || ""
@@ -620,7 +628,7 @@ function sendPosition(x, y) {
                             enemieMokepon.x = enemie.x
                             enemieMokepon.y = enemie.y
 
-                            enemieMokepon.drawMokepon()
+                            return enemieMokepon
                         }
                     })
                 })
