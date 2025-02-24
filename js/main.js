@@ -78,6 +78,9 @@ let interval
 //Getting Player Array
 let petPlayerObject
 
+//Backend
+let playerID = null
+
 //Responsive Map Variables
 let wantedHeight
 let mapWidth = window.innerWidth - 20
@@ -221,6 +224,23 @@ function startGame() {
 
     //Restart button
     restartButton.addEventListener("click", restartGame)
+
+    //Join Game
+    joinGame()
+}
+
+//Joining multiplayer game
+function joinGame() {
+    fetch("http://localhost:8080/join")
+        .then(function (res) {
+            if (res.ok) {
+                res.text()
+                    .then(function (answer) {
+                        console.log(answer)
+                        playerID = answer
+                    })
+            }
+        })
 }
 
 //Creating pet player selection
@@ -253,6 +273,9 @@ function selectPetPlayer() {
     //Getting pet attacks
     getAttacks(petPlayer)
 
+    //Sending Pet to backend
+    petChoice(petPlayer)
+
     //Showing map
     sectionViewMap.style.display = 'flex'
     startMap()
@@ -266,6 +289,19 @@ function selectPetPlayer() {
 
     //Showing Pet
     drawCanvas()
+}
+
+//Sending pet info to backend
+function petChoice(petPlayer) {
+    fetch(`http://localhost:8080/mokepon/${playerID}`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            mokepon: petPlayer
+        })
+    })
 }
 
 //Getting attacks from arrays
@@ -552,6 +588,8 @@ function drawCanvas (){
     )
     //Mapping? (Adding image inside contructor)
     petPlayerObject.drawMokepon()
+    //Sending to Backend Pet position
+    sendPosition(petPlayerObject.x, petPlayerObject.y)
     //Adding enemy pets on map
     enemyHipodoge.drawMokepon()
     enemyCapipepo.drawMokepon()
@@ -562,6 +600,28 @@ function drawCanvas (){
         checkCollision(enemyCapipepo)
         checkCollision(enemyRatigueya)
     }
+}
+
+//Sending to Backend Pet Position
+function sendPosition(x, y) {
+    fetch(`http://localhost:8080/mokepon/${playerID}/position`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
+    .then(function (res) {
+        if (res.ok) {
+            res.json()
+                .then(function ({ enemiesPlayers }) {
+                    console.log(enemiesPlayers)
+                })
+        }
+    })
 }
 
 //OnMap Movement Functions
